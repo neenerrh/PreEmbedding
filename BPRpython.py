@@ -12,20 +12,20 @@ import math
 from scipy.special import expit
 
 class BPR:
-    user_count =  48640
-    item_count =  34101
+    user_count =  32242
+    item_count =  30066
     #user_count = 11955
     #item_count = 103
     #user_count = 25667
     #item_count = 145
-    latent_factors = 128
+    latent_factors = 10
     lr = 0.025
     reg = 0.01
     train_count =15
-    train_data_path = r'C:\\Users\\Administrator\\Desktop\\New_folder\\phd\\github\\BPR_MKRGE\\sampleMKRGE3\\training.txt'
-    test_data_path = r'C:\\Users\\Administrator\\Desktop\\New_folder\\phd\\github\\BPR_MKRGE\\sampleMKRGE3\\testing.txt'
-    user_embedding_file = r'C:\\Users\\Administrator\\Desktop\\New_folder\\phd\\github\\BPR_MKRGE\\sampleMKRGE3\\u_vectors.txt'
-    item_embedding_file = r'C:\\Users\\Administrator\\Desktop\\New_folder\\phd\\github\\BPR_MKRGE\\sampleMKRGE3\\v_vectors.txt'
+    train_data_path = r'training3.txt'
+    test_data_path = r'test3.txt'
+    user_embedding_file = r'u_vectors.txt'
+    item_embedding_file = r'v_vectors.txt'
     size_u_i = user_count * item_count
     # latent_factors of U & V
     U = np.random.rand(user_count, latent_factors) * 0.01  
