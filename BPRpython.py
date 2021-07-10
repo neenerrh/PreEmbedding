@@ -58,7 +58,7 @@ class BPR:
         #[res.append(x) for x in items if x not in res]         
         return user_ratings,users,items
 
-     def load_test_data(self, path):
+    def load_test_data(self, path):
         ratings = defaultdict(set)
         items=[]
         users=[]
@@ -346,7 +346,7 @@ class BPR:
         
         test_data,test_items,test_users = self.load_test_data(self.test_data_path)
         
-        test_data=dict(data)
+        test_data=dict(test_data)
         print(test_data)
         
         users= train_users
@@ -364,7 +364,7 @@ class BPR:
         #res2 = [] 
         #[res2.append(x) for x in items if x not in res2]
         #all item list
-        items=res2       
+        #items=res2       
         print(len(users))
         print(len(items))
         self.U= dict(zip(users,self.U))
