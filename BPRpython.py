@@ -12,20 +12,22 @@ import math
 from scipy.special import expit
 
 class BPR:
-    user_count =  32242
-    item_count =  30066
+    
+ 
+    user_count = 12325
+    item_count =  18832
     #user_count = 11955
     #item_count = 103
     #user_count = 25667
     #item_count = 145
     latent_factors = 10
-    lr = 0.025
+    lr = 0.01
     reg = 0.01
-    train_count =15
-    train_data_path = r'training3.txt'
-    test_data_path = r'test3.txt'
-    user_embedding_file = r'u_vectors.txt'
-    item_embedding_file = r'v_vectors.txt'
+    train_count =10
+    train_data_path = r'training1.txt'
+    test_data_path = r'test1.txt'
+    user_embedding_file = r'u_vectors1.txt'
+    item_embedding_file = r'v_vectors1.txt'
     size_u_i = user_count * item_count
     # latent_factors of U & V
     U = np.random.rand(user_count, latent_factors) * 0.01  
@@ -319,18 +321,18 @@ class BPR:
     def save_user_embeddings(self, U,filename):
         fout = open(filename, 'w')
         node_num = len(U.keys())
-        fout.write("{} {}\n".format(node_num, self.latent_factors))
+        fout.write("{}|{}\n".format(node_num, self.latent_factors))
         for node, vec in U.items():
-            fout.write("{} {}\n".format(node, ' '.join([str(x) for x in vec])))
+            fout.write("{}|{}\n".format(node, ' '.join([str(x) for x in vec])))
         fout.close()
         
         
     def save_item_embeddings(self, V, filename):
         fout = open(filename, 'w')
         node_num = len(V.keys())
-        fout.write("{} {}\n".format(node_num, self.latent_factors))
+        fout.write("{}|{}\n".format(node_num, self.latent_factors))
         for node, vec in V.items():
-            fout.write("{} {}\n".format(node, ' '.join([str(x) for x in vec])))
+            fout.write("{}|{}\n".format(node, ' '.join([str(x) for x in vec])))
         fout.close()
 
     def main(self):
