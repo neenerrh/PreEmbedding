@@ -14,8 +14,8 @@ from scipy.special import expit
 class BPR:
     
  
-    user_count = 12325
-    item_count =  18832
+    user_count = 6998
+    item_count =  12317
     #user_count = 11955
     #item_count = 103
     #user_count = 25667
@@ -45,6 +45,7 @@ class BPR:
     def load_data(self, path):
         user_ratings = defaultdict(set)
         items=[]
+        users=[]
         with open(path, 'r') as f:
             for line in f.readlines():
                 u, i ,rate= line.strip().split("\t")
@@ -52,23 +53,26 @@ class BPR:
                 i = 'i'+ i
                 items.append(i)
                 user_ratings[u].add(i)
-        res = [] 
-        [res.append(x) for x in items if x not in res]         
-        return user_ratings,res
+                users.append(u)
+        #res = [] 
+        #[res.append(x) for x in items if x not in res]         
+        return user_ratings,users,items
 
-    def load_test_data(self, path):
+     def load_test_data(self, path):
+        ratings = defaultdict(set)
         items=[]
-        file = open(path, 'r')
-        for line in file:
-            line = line.strip().split("\t")
-            user = line[0]
-            item = line[1]
-            if item not in set(items):
-                items.append(item)
-            self.test_data['user']['item'] = 1
-        res = [] 
-        [res.append(x) for x in items if x not in res]  
-        return res
+        users=[]
+        with open(path, 'r') as f:
+            for line in f.readlines():
+                u, i ,rate= line.strip().split("\t")
+                u = 'u'+ u
+                i = 'i'+ i
+                items.append(i)
+                users.append(u)
+                ratings[u].add(i)
+        #res = [] 
+        #[res.append(x) for x in items if x not in res]         
+        return ratings, items, users
     
     def read_data(self,filename):
         if filename is None:
@@ -336,18 +340,29 @@ class BPR:
         fout.close()
 
     def main(self):
-        user_ratings_train,train_items= self.load_data(self.train_data_path)
+        user_ratings_train,train_users, train_items= self.load_data(self.train_data_path)
         #print(user_ratings_train)
         train_users=user_ratings_train.keys() 
-        test_users,test_items,test_data =self.read_data(self.test_data_path)
-        all_users= list(train_users) + list(test_users)
-        res1 = [] 
-        [res1.append(x) for x in all_users if x not in res1]
+        
+        test_data,test_items,test_users = self.load_test_data(self.test_data_path)
+        
+        test_data=dict(data)
+        print(test_data)
+        
+        users= train_users
+        
+        #test_users,test_items,test_data =self.read_data(self.test_data_path)
+        
+        items= train_items +test_items
+        items =  list(dict.fromkeys(items))
+        #all_users= list(train_users) + list(test_users)
+        #res1 = [] 
+        #[res1.append(x) for x in all_users if x not in res1]
         #all users list
-        users=res1        
-        items=train_items + list(test_items)
-        res2 = [] 
-        [res2.append(x) for x in items if x not in res2]
+        #users=res1        
+        #items=train_items + list(test_items)
+        #res2 = [] 
+        #[res2.append(x) for x in items if x not in res2]
         #all item list
         items=res2       
         print(len(users))
